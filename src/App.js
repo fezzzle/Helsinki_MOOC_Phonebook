@@ -6,10 +6,23 @@ import axios from "axios";
 
 const API_URL = `http://localhost:3001/persons`;
 
+const Notification = ({ popupNotificationType, popupNotificationMessage}) => {
+  if (popupNotificationType === null) {
+    return null
+  }
+  return (
+    <div className={popupNotificationType}>
+      {popupNotificationMessage}
+    </div>
+  )
+}
+
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newNumber, setNewNumber] = useState("");
   const [newName, setNewName] = useState("");
+  const [popupNotificationType, setPopupNotificationType] = useState(null)
+  const [popupNotificationMessage, setPopupNotificationMessage] = useState(null)
 
   useEffect(() => {
     axios.get(API_URL).then((res) => {
@@ -30,11 +43,12 @@ const App = () => {
         setPersons(persons.concat(res.data));
         setNewNumber("");
         setNewName("");
+        setPopupNotificationType('success')
+        setPopupNotificationMessage(`Added ${res.data.name} to the phonebook!`)
       });
     } else {
       console.log("personObject is ", personObject);
       if (personObject.number !== undefined) {
-        console.log("New phone number is ready to be added");
         const replaceNumber = window.confirm(
           `${personObject.name} is already added to phonebook, replace the old number with new one?`
         );
@@ -54,7 +68,9 @@ const App = () => {
               );
             });
         } else {
-          alert("person is already on the list");
+          <PopupNotification />
+          setPopupNotificationType('error')
+          setPopupNotificationMessage(`Person already exists on the list!`)
         }
       }
     }
@@ -73,6 +89,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification popupNotificationType={popupNotificationType} popupNotificationMessage={popupNotificationMessage} />
       <h3>Add a new person</h3>
       <Form
         handleSubmit={handleSubmit}
