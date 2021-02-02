@@ -1,26 +1,6 @@
 {
   "persons": [
     {
-      "name": "Timmy",
-      "number": "123",
-      "id": 1
-    },
-    {
-      "name": "asdf",
-      "number": "asdf",
-      "id": 2
-    },
-    {
-      "name": "Tom",
-      "number": "123",
-      "id": 3
-    },
-    {
-      "name": "Dinku",
-      "number": "asdf",
-      "id": 4
-    },
-    {
       "name": "Tereseal",
       "number": "12344444",
       "id": 5
@@ -34,6 +14,11 @@
       "name": "terereererer",
       "number": "231",
       "id": 7
+    },
+    {
+      "name": "Tom1",
+      "number": "1234",
+      "id": 8
     }
   ]
 }
